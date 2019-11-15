@@ -1,2 +1,30 @@
 ---
-# tasks file for app-tier
+# Provision the app-tier 
+# This will install Tomcat and it's associated filesystem
+- name: Install Packages for App Tier
+  loop: "{{ app_tier_packages }}"
+  yum:
+    name: "{{ item }}"
+    state: present
+
+- name: Enable Tomcat at boot
+  service:
+      name: tomcat
+      enabled: yes
+  notify:
+    - restart tomcat
+
+- name: Create Ansible tomcat directory
+  file:
+      path: /usr/share/tomcat/webapps/ansible
+      state: directory
+  notify:
+    - restart tomcat
+
+- name: Install application for host {{ ansible_hostname }}
+  template:
+    src: index.html.{{ ansible_hostname }}
+    dest: /usr/share/tomcat/webapps/ansible/index.html
+    mode: 0644
+  notify:
+    - restart tomcat

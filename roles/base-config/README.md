@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Base configuration of all systems. Currently this manages our custom yum repo.
 
 Requirements
 ------------

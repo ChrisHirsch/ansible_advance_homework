@@ -1,2 +1,24 @@
 ---
-# tasks file for db-tier
+
+# Install, start, initialize (if necessary) PostgreSQL
+
+- name: Install PostgreSQL
+  loop: "{{ postgresql_packages }}"
+  yum:
+    name: "{{ item }}"
+    state: installed
+
+# Only initialize if pg_clog is missing
+# @todo - may want to make this a bit more bulletproof
+- name: Initialize PostgreSQL
+  command: postgresql-setup initdb
+  args:
+      creates: /var/lib/pgsql/data/pg_clog
+
+- name: enable PostgreSQL on boot
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+

@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role will install Tomcat and install the correct static file for the correct host. When the host is accessed, Tomcat will serve the file accordingly. 
 
 Requirements
 ------------

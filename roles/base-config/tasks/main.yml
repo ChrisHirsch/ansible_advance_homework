@@ -1,2 +1,10 @@
 ---
-# tasks file for base-config
+# Tasks needed to configure base 3tier App
+
+# Install our Custom Repos
+- name: Install Repos
+  template:
+    src: open_three-tier-app.repo
+    dest: /etc/yum.repos.d/open_three-tier-app.repo
+    mode: 0644
+    owner: root

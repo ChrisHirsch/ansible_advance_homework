@@ -1,2 +1,4 @@
 ---
-# defaults file for app-tier
+# We use Tomcat for our app-tier
+app_tier_packages:
+  - tomcat

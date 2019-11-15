@@ -1,2 +1,5 @@
 ---
-# defaults file for db-tier
+# defaults file for dbs
+
+postgresql_packages:
+  - postgres-server
