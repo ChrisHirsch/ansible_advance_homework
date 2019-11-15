@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Creates new server instances, and configures network.
 
 Requirements
 ------------
