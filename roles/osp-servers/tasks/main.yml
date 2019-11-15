@@ -2,21 +2,17 @@
 
 # tasks file for osp.servers
 - name: Create new server instances and attaches them a network and passes metadata to the instance
-  loop: "{{ osp_servers }}"
-  loop_control:
-    loop_var: server
-    label: "Provisioning {{ server.name }}"
+  with_dict: "{{ osp_servers }}"
   os_server:
-    name: "{{ server.name }}"
+    name: "{{ item.value.name }}"
     cloud: ospcloud
-    state: "{{ server.state }}"
-    image: "{{ server.image }}"
-    meta: "group={{ server.group }},deployment_name={{ server.deployment_name }}"
-    flavor: "{{ server.flavor }}"
-    security_groups: "{{ server.security_group }}"
-    key_name: "{{ server.key_name }}"
-    nics:
-    - net-name: int_network
+    state: "{{ item.value.state }}"
+    image: "{{ item.value.image }}"
+    meta: "group={{ item.value.security_group }},deployment_name={{ item.value.deployment_name }}"
+    flavor: "{{ item.value.flavor }}"
+    security_groups: "{{ item.value.security_group }}"
+    key_name: "{{ item.value.key_name }}"
+    nics: "{{ int_network }}""
     userdata: |
       #!/bin/bash
       curl -o /tmp/openstack.pub http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
