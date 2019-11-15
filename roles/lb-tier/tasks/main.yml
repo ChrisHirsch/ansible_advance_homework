@@ -3,7 +3,7 @@
   loop: "{{ haproxy_package }}"
   package:
     name: "{{ item }}"
-    state: installed
+    state: present
 
 - name: enable HAProxy
   service:
