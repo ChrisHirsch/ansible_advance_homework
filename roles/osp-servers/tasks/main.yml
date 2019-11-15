@@ -12,7 +12,7 @@
     flavor: "{{ item.value.flavor }}"
     security_groups: "{{ item.value.security_group }}"
     key_name: "{{ item.value.key_name }}"
-    nics: "{{ default_network }}"
+    nics: "{{ default_networks }}"
     userdata: |
       #!/bin/bash
       curl -o /tmp/openstack.pub http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
@@ -24,29 +24,38 @@
 - name: Show me the money!
   debug:
     var: os_hosts
+    verbosity: 3
 
 
 - name: Add floating IP to Servers
-  loop: "{{ os_hosts.results }}"
-  loop_control:
-    loop_var: server
-    label: "Adding floating IP to  {{ server.name }}"
+  with_items: "{{ os_hosts.results }}"
   os_floating_ip:
       cloud: ospcloud
       state: present
       reuse: yes
-      server: "{{ server.openstack.name }}"
+      server: "{{  item.openstack.name }}"
       network: "{{ public_network }}"
       wait: true
       timeout: 180
   register: instancefloatingip   
 
-- name: Show "{{ instanceip }}" public IP
-  debug: var=instancefloatingip.floating_ip.floating_ip_address
+- name: instancefloatingip
+  debug: 
+    var: instancefloatingip
+    verbosity: 3
 
-- name: Wait for "{{ instance_name }}" to be available
+- name: instancefloatingip.results[0]
+  debug: 
+    var: instancefloatingip.results[0]
+    verbosity: 3
+
+- name: Show public IP
+  debug: 
+    var: instancefloatingip.results[0].floating_ip.floating_ip_address
+
+- name: Wait for servers to be available
   wait_for:
-    host: "{{ instancefloatingip.floating_ip.floating_ip_address }}"
+    host: "{{ instancefloatingip.results[0].floating_ip.floating_ip_address }}"
     port: 22
     search_regex: OpenSSH
     timeout: 600

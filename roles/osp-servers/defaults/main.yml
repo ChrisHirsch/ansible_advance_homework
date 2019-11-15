@@ -1,4 +1,5 @@
 ---
 # defaults file for osp.servers
-default_network: int_network
+default_networks: 
+  - net-name: int_network
 public_network: ext_network
