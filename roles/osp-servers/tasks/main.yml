@@ -8,7 +8,7 @@
     cloud: ospcloud
     state: "{{ item.value.state }}"
     image: "{{ item.value.image }}"
-    meta: "group={{ item.value.security_group }},deployment_name={{ item.value.deployment_name }}"
+    meta: "{{ item.value.meta[0] }}"
     flavor: "{{ item.value.flavor }}"
     security_groups: "{{ item.value.security_group }}"
     key_name: "{{ item.value.key_name }}"
