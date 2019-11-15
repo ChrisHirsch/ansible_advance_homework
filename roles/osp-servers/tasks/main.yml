@@ -12,7 +12,7 @@
     flavor: "{{ item.value.flavor }}"
     security_groups: "{{ item.value.security_group }}"
     key_name: "{{ item.value.key_name }}"
-    nics: "{{ int_network }}""
+    nics: "{{ int_network }}"
     userdata: |
       #!/bin/bash
       curl -o /tmp/openstack.pub http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
