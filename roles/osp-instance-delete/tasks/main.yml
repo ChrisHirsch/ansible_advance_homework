@@ -2,7 +2,7 @@
 # tasks file for roles/osp-instance-delete
   - name: Fetch Instance Info
     os_server_facts:
-      cloud: opscloud
+      cloud: ospcloud
       region_name: RegionOne
     register: facts
       
@@ -11,7 +11,7 @@
     os_server:
       name: "{{ item.name }}"
       state: absent
-      cloud: opscloud
+      cloud: ospcloud
 
 
 
