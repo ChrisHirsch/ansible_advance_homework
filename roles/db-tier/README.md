@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install PostgreSQL, initialize if not initialized already and make sure it's running.
 
 Requirements
 ------------

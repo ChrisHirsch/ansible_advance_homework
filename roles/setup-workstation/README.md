@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Sets up the workstation instance with SSH keys, and other necessary things.
 
 Requirements
 ------------
