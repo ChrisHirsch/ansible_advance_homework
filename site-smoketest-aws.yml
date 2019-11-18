@@ -5,7 +5,7 @@
     uri:
       url: "http://localhost"
       return_content: yes
-      register: website
+    register: website
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
