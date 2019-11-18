@@ -25,7 +25,7 @@
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
-      msg: "'Ansible has done its job' not found in webpage.results[0].content"
-    when: "'Ansible has done its job' not in webpage.results[0].content"
+      msg: "'Ansible has done its job' not found in webpage.content"
+    when: "'Ansible has done its job' not in webpage.content"
     tags:
       - osp.smoke
