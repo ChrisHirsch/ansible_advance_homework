@@ -21,9 +21,9 @@
   notify:
     - restart tomcat
 
-- name: Install application for host {{ ansible_hostname }}
+- name: "Install application template for {{ inventory_hostname }}"
   template:
-    src: index.html.{{ ansible_hostname }}
+    src: "index.html.{{ inventory_hostname }}"
     dest: /usr/share/tomcat/webapps/ansible/index.html
     mode: 0644
   notify:
