@@ -7,16 +7,9 @@
     name: "{{ item }}"
     state: present
 
-- name: Enable Tomcat at boot
-  service:
-      name: tomcat
-      enabled: yes
-  notify:
-    - restart tomcat
-
 - name: Create Ansible tomcat directory
   file:
-      path: /usr/share/tomcat/webapps/ansible
+      path: /usr/share/tomcat/webapps/ROOT
       state: directory
   notify:
     - restart tomcat
@@ -24,7 +17,13 @@
 - name: "Install application template for {{ inventory_hostname }}"
   template:
     src: "index.html.j2"
-    dest: /usr/share/tomcat/webapps/ansible/index.html
+    dest: /usr/share/tomcat/webapps/ROOT/index.html
     mode: 0644
   notify:
     - restart tomcat
+
+- name: start and enable tomcat
+  service:
+    name: tomcat
+    state: started
+    enabled: yes
